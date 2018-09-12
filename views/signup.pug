@@ -1,0 +1,15 @@
+extends layout
+
+block content
+  h1= Sign Up
+  form 
+    fieldset
+
+      label(for='emailField') Email
+      input#emailField(type='email' placeholder='someone@exmaple.com')
+
+      label(for='passwordField') Password
+      input#passwordField(type='password' placeholder='')
+
+      input.button-primary(type='submit') Send
+
