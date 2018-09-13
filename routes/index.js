@@ -1,11 +1,11 @@
 const express = require('express');
 
+const controller = require('api/store/store.controller');
 
 const router = express.Router();
 
-/* GET home page. */
-router.get('/', (req, res) => {
-  res.render('index', { title: 'Moltin Shop' });
-});
+/* Render Home page with Product listing */
+router
+  .get('/', controller.getList);
 
 module.exports = router;

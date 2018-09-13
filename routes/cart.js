@@ -3,7 +3,7 @@ const express = require('express');
 
 const router = express.Router();
 
-/* GET home page. */
+/* cart page. */
 router.get('/', (req, res) => {
   res.render('cart', { title: 'Shopping Cart' });
 });

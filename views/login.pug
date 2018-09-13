@@ -1,5 +1,22 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  include partials/pagetitle.pug
+
+  div.row
+    div.column.column-40
+      form 
+        fieldset
+          div
+            label(for='emailField') Email
+            input#emailField(type='email' placeholder='someone@exmaple.com')
+
+          div
+            label(for='passwordField') Password
+            input#passwordField(type='password' placeholder='')
+
+          div
+            input.button-primary(type='submit' value='Login')
+
+
+  script(src='/javascripts/login.js')

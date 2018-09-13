@@ -1,15 +1,21 @@
 extends layout
 
 block content
-  h1= Sign Up
-  form 
-    fieldset
+  include partials/pagetitle.pug
 
-      label(for='emailField') Email
-      input#emailField(type='email' placeholder='someone@exmaple.com')
+  div.row
+    div.column.column-40
+      form 
+        fieldset
+          div
+            label(for='emailField') Email
+            input#emailField(type='email' placeholder='someone@exmaple.com')
 
-      label(for='passwordField') Password
-      input#passwordField(type='password' placeholder='')
+          div
+            label(for='passwordField') Password
+            input#passwordField(type='password' placeholder='')
 
-      input.button-primary(type='submit') Send
+          div
+            input.button-primary(type='submit' value='Signup')
 
+  script(src='/javascripts/signup.js')

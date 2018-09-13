@@ -1,0 +1,17 @@
+div.filters 
+  h5 Category ?
+  each cat in categories
+    div.category-filter 
+      input(type='checkbox' value=cat.id, checked=cat.id == category)
+      label #{"\u00A0"} #{cat.name}
+  hr
+
+  h5 Available ?
+  div.stock-filter 
+    div
+      input(type='radio' value='in-stock', name='stock')
+      label #{"\u00A0"} In stock
+    div
+      input(type='radio' value='out-stock', name='stock')
+      label #{"\u00A0"} Out of stock
+  hr

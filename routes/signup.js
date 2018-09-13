@@ -3,9 +3,9 @@ const express = require('express');
 
 const router = express.Router();
 
-/* GET home page. */
+/* Signup page. */
 router.get('/', (req, res) => {
-  res.render('index', { title: 'Moltin Shop' });
+  res.render('signup', { title: 'Sign Up' });
 });
 
 module.exports = router;

@@ -1,5 +1,24 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  div.content-wrapper 
+    include partials/pagetitle.pug
+    if products
+      div.row
+        div.column.column-20
+        div.column.column-80
+          div.row.control-row.sortproduct
+            div.column.sort-product 
+              include partials/home/sorting.pug
+
+            div.paginate-product 
+              include partials/home/pagination.pug
+      div.row 
+        div.column.column-20
+          include partials/home/filters.pug
+        div.column.column-80
+          div.row.row-wrap.product-row
+            each product in products
+              include partials/home/productcard
+
+  script(src='/javascripts/home.js')
