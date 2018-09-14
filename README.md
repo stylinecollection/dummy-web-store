@@ -36,3 +36,21 @@
 #### Used tech stack
 #### How to install dependencies (mention the OS it'll run on - Windows/Mac/Linux)
 #### How to run the project
+
+# dummy-web-store
+
+> Dummy Web Store built on Vue.js
+
+## Build Setup
+
+``` bash
+# install dependencies
+npm install
+
+# serve with hot reload at localhost:8080
+npm run dev
+
+# build for production with minification
+npm run build
+```
+
