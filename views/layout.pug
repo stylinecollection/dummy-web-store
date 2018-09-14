@@ -17,14 +17,19 @@ html
       nav.navigation
         section.container
           ul.navigation-list
-            li.navigation-item
+            li.navigation-item.home
               a.navigation-link(href="/", title="Moltin Shop") Moltin Store
 
           ul.navigation-list.float-right
-            li.navigation-item
-              a.navigation-link(href="/signup") Sign Up
-            li.navigation-item
-              a.navigation-link(href="/login") Login
+            if user
+              li.navigation-item.title #{user.name}
+              li.navigation-item
+                a.navigation-link(href="/account/logout") Logout
+            else
+              li.navigation-item
+                a.navigation-link(href="/account/signup") Sign Up
+              li.navigation-item
+                a.navigation-link(href="/account/login") Login
 
 
       section.container

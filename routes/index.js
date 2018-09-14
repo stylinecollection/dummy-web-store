@@ -1,11 +1,13 @@
 const express = require('express');
 
-const controller = require('api/store/store.controller');
+const authRoutes = require('api/auth/auth.route');
+const cartRoutes = require('api/cart/cart.route');
+const storeRoutes = require('api/store/store.route');
 
 const router = express.Router();
 
-/* Render Home page with Product listing */
-router
-  .get('/', controller.getList);
+router.use('/', storeRoutes);
+router.use('/account', authRoutes);
+router.use('/cart', cartRoutes);
 
 module.exports = router;

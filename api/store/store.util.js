@@ -10,8 +10,9 @@ const makeKey = (offset, sort, category, stock) => {
 
 const oneProduct = (response) => {
   console.log(response.data[0]);
-  console.log(response.meta);
-  console.log(response.links);
+  console.log(response.data[0].relationships.categories);
+  // console.log(response.meta);
+  // console.log(response.links);
 };
 
 const getCategories = async (Moltin) => {

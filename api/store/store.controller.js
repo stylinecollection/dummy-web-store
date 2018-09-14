@@ -9,7 +9,7 @@ const {
  * Get list
  * @public
  */
-exports.getList = async (req, res) => {
+exports.listPage = async (req, res) => {
   try {
     const page = req.query.page || 1; // pagination
     const sort = req.query.sort || ''; // sort by price
@@ -36,9 +36,19 @@ exports.getList = async (req, res) => {
 
     console.log(pagination);
 
-    res.render('index', { title: 'Products', products: products.data, categories, category, pagination });
+    res.render('index', {
+      title: 'Products',
+      products: products.data,
+      categories,
+      category,
+      pagination,
+      user: req.user,
+    });
   } catch (error) {
     console.log(error);
-    res.render('index', { title: 'No products found' });
+    res.render('index', {
+      title: 'No products found',
+      user: req.user,
+    });
   }
 };

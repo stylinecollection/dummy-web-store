@@ -36,3 +36,20 @@
 #### Used tech stack
 #### How to install dependencies (mention the OS it'll run on - Windows/Mac/Linux)
 #### How to run the project
+
+#### Notes
+1. product list response has category with id and type but no name
+
+1. Fork their repo on Github
+2. In your local, rename your origin remote to upstream
+
+    git remote rename origin upstream
+
+3. Add a new origin
+
+    git remote add origin git@github...my-fork
+
+4. Fetch & push
+
+    git fetch origin
+    git push origin

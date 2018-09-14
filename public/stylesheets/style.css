@@ -27,7 +27,6 @@ a {
 .navigation-list {
   list-style: none;
   margin-bottom: 0;
-  margin-right: 5rem;
 }
 
 .navigation-list .navigation-item {
@@ -35,6 +34,10 @@ a {
   margin-bottom: 0;
   margin-left: 2.5rem;
   position: relative;
+}
+
+.navigation-list .navigation-item.home {
+  margin: 0;
 }
 
 .navigation .navigation-link, .navigation .navigation-title, .navigation .title {

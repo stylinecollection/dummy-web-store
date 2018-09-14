@@ -5,15 +5,18 @@ block content
 
   div.row
     div.column.column-40
-      form 
+      form(action='/account/signup' method='POST')
         fieldset
           div
+            label(for='nameField') Name
+            input#nameField(type='text' name='name' placeholder='', required)
+          div
             label(for='emailField') Email
-            input#emailField(type='email' placeholder='someone@exmaple.com')
+            input#emailField(type='email' name='email' placeholder='someone@exmaple.com', required)
 
           div
             label(for='passwordField') Password
-            input#passwordField(type='password' placeholder='')
+            input#passwordField(type='password' name='password' placeholder='', required)
 
           div
             input.button-primary(type='submit' value='Signup')

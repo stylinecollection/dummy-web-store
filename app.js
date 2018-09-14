@@ -5,11 +5,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const dotenv = require('dotenv');
 
-const authenticateMoltin = require('middlewares/moltin');
-const indexRouter = require('routes/index');
-const signupRouter = require('routes/signup');
-const loginRouter = require('routes/login');
-const cartRouter = require('routes/cart');
+const routes = require('routes/index');
 
 const app = express();
 
@@ -26,11 +22,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(authenticateMoltin);
-app.use('/', indexRouter);
-app.use('/signup', signupRouter);
-app.use('/login', loginRouter);
-app.use('/cart', cartRouter);
+// add routes
+app.use('/', routes);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

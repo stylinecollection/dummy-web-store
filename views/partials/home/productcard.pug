@@ -10,7 +10,8 @@ div.column-20.product
       br
       span.stock Stock: #{product.meta.stock.availability}
     div.column-20
-      i.fas.fa-cart-plus
+      if user
+        i.fas.fa-cart-plus
 
   h6.name #{product.name}
 
