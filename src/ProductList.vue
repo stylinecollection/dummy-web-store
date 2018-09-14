@@ -1,5 +1,15 @@
 <template>
   <div class="container">
+    <div class="row">
+      <div class="col-md-2">
+        <b-form-select v-model="selectedCategory" :options="categories" class="mb-3" v-on:input="filter()"/>
+      </div>
+      <div class="col-md-2">
+        <b-form-select v-model="selectedAvailability" :options="availability" class="mb-3" v-on:input="filter()"/>
+      </div>
+    </div>
+
+    <br>
     <div class="list-group" v-for="product in products" :key="product.id">
       <div class="row list-group-item">
         <img class="col img-thumbnail float-left" style="height: 200px; width: 200px;" :src="getProductThumb(product)" alt="">
@@ -14,10 +24,8 @@
         </div>
       </div>
     </div>
-
     <br>
-
-    <nav aria-label="..." style="float: right">
+    <nav aria-label="..." style="float: right" v-if="productsCount > 0">
       <ul class="pagination">
         <li class="page-item" v-bind:class="{ disabled: !hasFirst}">
           <a class="page-link"  v-on:click="loadProducts('first')" tabindex="-1">First</a>
@@ -36,6 +44,9 @@
         </li>
       </ul>
     </nav>
+    <div class="alert alert-danger text-center" role="alert" v-if="productsCount === 0">
+      <strong>No Data Found!</strong>
+    </div>
   </div>
 </template>
 
@@ -45,21 +56,35 @@
   export default {
     data () {
       return {
+        placeholder: 'https://s3-eu-west-1.amazonaws.com/bkt-svc-files-cmty-api-moltin-com/ef4e860a-1d01-4e5c-a6a8-427cfa48a668/',
         products: {},
-        categories: {},
+        productLink: 'https://api.moltin.com/v2/products?include=categories&page[limit]=10&page[offset]=0',
+        selectedCategory:null,
+        categories: [{'value': null, 'text':"Select Category"}],
+        selectedAvailability:null,
+        availability: [{'value': null, 'text':"All"},{'value': 0, 'text':"Out of Stock"},{'value': 1, 'text':"In Stock"}],
+        productCategories: {},
         paginationLinks: {},
         dataMeta: {}
       }
     },
     created () {
-      axios.defaults.headers.common['Authorization'] = '231c4161642d668e5bdbb009aead647586f21740';
-      axios.get('https://api.moltin.com/v2/products?include=categories&page[limit]=10&page[offset]=0').then(response => {
+      axios.defaults.headers.common['Authorization'] = '3a3c2406674db5b64ae92f76345f1f46e47d40d4';
+      axios.get(this.productLink).then(response => {
         this.products = response.data.data;
         if(response.data.hasOwnProperty('included') && response.data.included.hasOwnProperty('categories')) {
-          this.categories = response.data.included.categories;
+          this.productCategories = response.data.included.categories;
         }
         this.paginationLinks = response.data.links;
         this.dataMeta = response.data.meta;
+      });
+      axios.get('https://api.moltin.com/v2/categories').then(response => {
+        for(let i in response.data.data) {
+          // if(response.data.data[i].hasOwnProperty('relationships') && response.data.data[i].relationships.hasOwnProperty('products'))
+          {
+            this.categories.push({'value': response.data.data[i].id, 'text':response.data.data[i].name})
+          }
+        }
       });
     },
     methods: {
@@ -67,45 +92,62 @@
         axios.get(this.paginationLinks[key]).then(response => {
           this.products = response.data.data;
           if(response.data.hasOwnProperty('included') && response.data.included.hasOwnProperty('categories')) {
-            this.categories = response.data.included.categories;
+            this.productCategories = response.data.included.categories;
           }
           this.paginationLinks = response.data.links;
           this.dataMeta = response.data.meta;
         });
       },
       getProductThumb: function (product) {
-        const placeholder = 'https://s3-eu-west-1.amazonaws.com/bkt-svc-files-cmty-api-moltin-com/ef4e860a-1d01-4e5c-a6a8-427cfa48a668/';
-        try {
+        if(product.hasOwnProperty('relationships') && product.relationships.hasOwnProperty('files')){
           const file = product.relationships.files.data[0].id;
-          return placeholder+file+'.jpg'
-        } catch (e) {
-          return placeholder
+          return this.placeholder+file+'.jpg'
+        }
+        else{
+          return ''
         }
       },
       getCategory: function (product) {
         let str_categories = '';
         if(product.relationships.hasOwnProperty('categories')) {
           for (let i in product.relationships.categories.data) {
-            for (let j in this.categories) {
-              if (product.relationships.categories.data[i].id === this.categories[j].id) {
+            for (let j in this.productCategories) {
+              if (product.relationships.categories.data[i].id === this.productCategories[j].id) {
                 if (i != 0) {
                   str_categories += ', ';
                 }
-                str_categories += this.categories[j].name;
+                str_categories += this.productCategories[j].name;
               }
             }
           }
           return str_categories
         }
         return 'N/A'
-      }
+      },
+      filter: function () {
+        console.log(this.productLink+this.filterQuery);
+        axios.get(this.productLink+this.filterQuery).then(response => {
+          this.products = response.data.data;
+          if(response.data.hasOwnProperty('included') && response.data.included.hasOwnProperty('categories')) {
+            this.productCategories = response.data.included.categories;
+          }
+          this.paginationLinks = response.data.links;
+          this.dataMeta = response.data.meta;
+        });
+      },
     },
     computed: {
+      productsCount: function () {
+        if(this.dataMeta.hasOwnProperty('results'))
+          return this.dataMeta.results.all;
+        else
+          return 0;
+      },
       hasFirst: function () {
         return this.paginationLinks.first !== this.paginationLinks.current;
       },
       hasLast: function () {
-        return this.paginationLinks.last !== this.paginationLinks.current;
+        return this.paginationLinks.next !== null;
       },
       hasNext: function () {
         return this.paginationLinks.next !== null;
@@ -121,6 +163,24 @@
         else{
           return 1;
         }
+      },
+      filterQuery: function () {
+        let filterString = '';
+        if(this.selectedCategory != null || this.selectedAvailability != null){
+          filterString = '?&filter=';
+          if(this.selectedCategory != null){
+            filterString += 'eq(category.id,'+this.selectedCategory+')';
+          }
+          if(this.selectedAvailability != null){
+            if(this.selectedAvailability == 0){
+              filterString += 'eq(stock,0)';
+            }
+            else{
+              filterString += 'gt(stock,0)';
+            }
+          }
+        }
+        return filterString;
       }
     }
   }
