@@ -7,6 +7,10 @@
       <div class="col-md-2">
         <b-form-select v-model="selectedAvailability" :options="availability" class="mb-3" v-on:input="filter()"/>
       </div>
+      <div class="col-md-8 text-right" v-if="( selectedCategory === null && selectedAvailability === null)">
+        <a class="" href="#"  v-on:click="sort()" v-if="sorted === '-price'">Sort by Price &#x2193;</a>
+        <a class="" href="#"  v-on:click="sort()" v-if="sorted === 'price'">Sort by Price &#x2191;</a>
+      </div>
     </div>
 
     <br>
@@ -65,12 +69,13 @@
         availability: [{'value': null, 'text':"All"},{'value': 0, 'text':"Out of Stock"},{'value': 1, 'text':"In Stock"}],
         productCategories: {},
         paginationLinks: {},
-        dataMeta: {}
+        dataMeta: {},
+        sorted: '-price'
       }
     },
     created () {
-      axios.defaults.headers.common['Authorization'] = '3a3c2406674db5b64ae92f76345f1f46e47d40d4';
-      axios.get(this.productLink).then(response => {
+      axios.defaults.headers.common['Authorization'] = '9c84ac4e7a983ddfd0d95595be4526c3d29dfe10';
+      axios.get(this.url).then(response => {
         this.products = response.data.data;
         if(response.data.hasOwnProperty('included') && response.data.included.hasOwnProperty('categories')) {
           this.productCategories = response.data.included.categories;
@@ -125,8 +130,8 @@
         return 'N/A'
       },
       filter: function () {
-        console.log(this.productLink+this.filterQuery);
-        axios.get(this.productLink+this.filterQuery).then(response => {
+        console.log(this.url);
+        axios.get(this.url).then(response => {
           this.products = response.data.data;
           if(response.data.hasOwnProperty('included') && response.data.included.hasOwnProperty('categories')) {
             this.productCategories = response.data.included.categories;
@@ -135,13 +140,23 @@
           this.dataMeta = response.data.meta;
         });
       },
+      changeSort: function () {
+        if(this.sorted === 'price')
+          this.sorted = '-price';
+        else
+          this.sorted = 'price'
+      },
+      sort: function () {
+        this.changeSort();
+        this.filter();
+      }
     },
     computed: {
       productsCount: function () {
         if(this.dataMeta.hasOwnProperty('results'))
           return this.dataMeta.results.all;
         else
-          return 0;
+          return -1;
       },
       hasFirst: function () {
         return this.paginationLinks.first !== this.paginationLinks.current;
@@ -167,7 +182,7 @@
       filterQuery: function () {
         let filterString = '';
         if(this.selectedCategory != null || this.selectedAvailability != null){
-          filterString = '?&filter=';
+          filterString = '&filter=';
           if(this.selectedCategory != null){
             filterString += 'eq(category.id,'+this.selectedCategory+')';
           }
@@ -181,6 +196,18 @@
           }
         }
         return filterString;
+      },
+      sortQuery: function () {
+          return '&sort='+this.sorted;
+      },
+      url: function () {
+        if( this.selectedCategory === null && this.selectedAvailability === null)
+        {
+          return this.productLink+this.sortQuery;
+        }
+        else{
+          return this.productLink+this.filterQuery;
+        }
       }
     }
   }
