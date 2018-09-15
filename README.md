@@ -42,6 +42,7 @@
 ```bash
 npm install
 ```
+2. make a copy of `.env.dis` file named `.env` and put moltin credentials.
 should work on any OS with node installed.
 #### How to run the project
 2. run project
