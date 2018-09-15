@@ -45,7 +45,7 @@ exports.login = async (req, res, next) => {
       password: req.body.password,
       // type: 'custoawait mer',
     };
-    const tokenData = await loginUser(req.Moltin, customer);
+    const tokenData = await loginUser(customer);
 
     console.log(tokenData);
 
@@ -70,7 +70,7 @@ exports.signup = async (req, res, next) => {
       type: 'customer',
     };
 
-    const tokenData = await registerUser(req.Moltin, customer);
+    const tokenData = await registerUser(customer);
     afterLogin(res, tokenData);
   } catch (error) {
     console.log(error);

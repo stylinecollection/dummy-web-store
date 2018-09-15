@@ -1,4 +1,7 @@
-const loginUser = async (Moltin, { email, password }) => {
+const Moltin = require('lib/moltin');
+
+
+const loginUser = async ({ email, password }) => {
   try {
     const token = await Moltin.Customers.Token(email, password);
     console.log(token);
@@ -14,7 +17,7 @@ const loginUser = async (Moltin, { email, password }) => {
   }
 };
 
-const registerUser = async (Moltin, customer) => {
+const registerUser = async (customer) => {
   try {
     const user = await Moltin.Customers.Create(customer);
     console.log(user);

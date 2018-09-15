@@ -22,6 +22,12 @@ html
 
           ul.navigation-list.float-right
             if user
+              li.navigation-item
+                a.navigation-link(href="/cart") 
+                  if cart && cart.length > 0
+                  span.cart-items-count #{cart.length} #{"\u00A0"}
+                  i.fas.fa-shopping-cart
+                    
               li.navigation-item.title #{user.name}
               li.navigation-item
                 a.navigation-link(href="/account/logout") Logout

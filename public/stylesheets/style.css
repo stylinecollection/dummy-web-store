@@ -87,6 +87,10 @@ a {
   flex-wrap: wrap;
 }
 
+.product .cart {
+  text-align: right;
+}
+
 .filters label {
   display: inline;
   font-size: 1.2rem;
@@ -95,6 +99,11 @@ a {
 .paginate-product {
   display: flex;
 }
+
+.cart-items {
+  list-style: none;
+}
+
 
 
 /* utility classes */
@@ -120,4 +129,8 @@ a {
   text-decoration: none;
   text-transform: uppercase;
   white-space: nowrap;
+}
+
+.fas {
+  cursor: pointer;
 }

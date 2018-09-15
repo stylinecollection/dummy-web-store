@@ -1,17 +1,27 @@
 div.column-20.product 
+   
   div.media-img
-    img(src='https://s3-eu-west-1.amazonaws.com/bkt-svc-files-cmty-api-moltin-com/ef4e860a-1d01-4e5c-a6a8-427cfa48a668/' + product.relationships.files.data[0].id + '.jpg')
+    if product.relationships.files
+      img(src='https://s3-eu-west-1.amazonaws.com/bkt-svc-files-cmty-api-moltin-com/ef4e860a-1d01-4e5c-a6a8-427cfa48a668/' + product.relationships.files.data[0].id + '.jpg')
+    else
+      img(src='https://via.placeholder.com/300x300')
+
   hr
+  if user
+    div.cart
+      i.fas.fa-cart-plus(data-product=product.id)
   div.row.detail
-    div.column-80
+    div.column
       span.sku SKU: #{product.sku}
       br
       span.price Price: #{product.price[0].amount} #{product.price[0].currency}
       br
       span.stock Stock: #{product.meta.stock.availability}
-    div.column-20
-      if user
-        i.fas.fa-cart-plus
+
+      if (product.relationships.categories)
+        br
+        span.category Category: #{product.relationships.categories.data[0].id}
+
 
   h6.name #{product.name}
 

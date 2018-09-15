@@ -1,4 +1,5 @@
 const cache = require('lib/cache');
+const Moltin = require('lib/moltin');
 
 
 const getMoltinUser = async (req, res, next) => {
@@ -11,7 +12,7 @@ const getMoltinUser = async (req, res, next) => {
         console.log('from cache');
         req.user = userFromCache.data;
       } else {
-        const user = await req.Moltin.Customers.Get(customer_id);
+        const user = await Moltin.Customers.Get(customer_id);
         await cache.set(customer_id, user);
         req.user = user.data;
       }

@@ -1,5 +1,5 @@
 const express = require('express');
-const authenticateMoltin = require('middlewares/moltin');
+// const authenticateMoltin = require('middlewares/moltin');
 const controller = require('./auth.controller');
 
 const router = express.Router();
@@ -8,7 +8,7 @@ const router = express.Router();
 router
   .route('/login')
   .get(controller.loginForm)
-  .post(authenticateMoltin, controller.login);
+  .post(controller.login);
 
 router
   .route('/logout')
@@ -17,7 +17,7 @@ router
 router
   .route('/signup')
   .get(controller.signupForm)
-  .post(authenticateMoltin, controller.signup);
+  .post(controller.signup);
 
 module.exports = router;
 
