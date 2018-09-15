@@ -71,24 +71,15 @@ export default {
     }).With(['main_image', 'brands']).Limit(1).All()
   },
 
-  getCart () {
-    return Moltin.Cart.Items()
+  getCart (ref) {
+    return Moltin.Cart(ref).Items();
   },
 
-  addToCart (productId, qty) {
-    return Moltin.Cart.AddProduct(productId, qty)
+  addToCart (ref, productId, qty) {
+    return Moltin.Cart(ref).AddProduct(productId, qty)
   },
 
-  removeFromCart (itemId) {
-    return Moltin.Cart.RemoveItem(itemId)
-  },
-
-  checkout (checkoutData) {
-    return Moltin.Cart.Checkout(checkoutData)
-  },
-
-  pay (orderId, paymentData) {
-    return Moltin.Orders.Payment(orderId, paymentData)
+  removeFromCart (ref, itemId) {
+    return Moltin.Cart(ref).RemoveItem(itemId)
   }
-
 }

@@ -25,6 +25,12 @@
           <div><strong>Price:</strong> {{ product.price[0].amount }} {{ product.price[0].currency }}</div>
           <div><strong>Stock:</strong> {{ product.meta.stock.level }}</div>
           <div><strong>Category:</strong> {{ getCategory(product) }} </div>
+          <br>
+
+          <div class="extra" v-if="showAddCartButton(product)" >
+            <button v-on:click.prevent="addToCart(product)" type="button" class="btn btn-outline-secondary btn-sm">Add To Cart</button>
+          </div>
+
         </div>
       </div>
     </div>
@@ -89,6 +95,10 @@
       });
     },
     methods: {
+      addToCart: function (product) {
+        let ref = this.$store.getters.getId;
+        MoltinService.addToCart(ref, product.id, 1)
+      },
       loadProducts: function(key) {
         var offset = 0;
         if(key==='next'){
@@ -166,9 +176,19 @@
       sort: function () {
         this.changeSort();
         this.filter();
-      }
+      },
+      showAddCartButton(product){
+        if(this.$store.getters.getToken != null){
+          if(product.meta.stock.level > 0)
+            return true
+        }
+        return false
+      },
     },
     computed: {
+      customerToken: function () {
+        return this.$store.getters.getToken
+      },
       productsCount: function () {
         if(this.dataMeta.hasOwnProperty('results'))
           return this.dataMeta.results.all;
