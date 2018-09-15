@@ -62,7 +62,7 @@ a {
 }
 .product {
   padding: 1rem;
-  margin: 1rem 0;
+  margin: 0 0 2rem 0;
   width: 28rem;
   min-height: 0;
   background: #FFF;
@@ -131,6 +131,10 @@ a {
   white-space: nowrap;
 }
 
+.clear-button[disabled]:hover {
+  background-color: #606c76;
+  border: 0.1rem solid #111;
+}
 .fas {
   cursor: pointer;
 }

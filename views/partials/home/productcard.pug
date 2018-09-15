@@ -7,7 +7,7 @@ div.column-20.product
       img(src='https://via.placeholder.com/300x300')
 
   hr
-  if user
+  if user && product.meta.stock.availability == 'in-stock'
     div.cart
       i.fas.fa-cart-plus(data-product=product.id)
   div.row.detail

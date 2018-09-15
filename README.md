@@ -34,22 +34,24 @@
 **Note**: Fill up the following sections before creating the pull request
 
 #### Used tech stack
+1. Express.js, Node.js framework
+2. Milligram, css framework
+
 #### How to install dependencies (mention the OS it'll run on - Windows/Mac/Linux)
+1. install dependencies
+```bash
+npm install
+```
+should work on any OS with node installed.
 #### How to run the project
+2. run project
+```bash
+npm start
+```
+project should be visible at http://localhost:3000
+
 
 #### Notes
-1. product list response has category with id and type but no name
+1. Product List api response has no category name for products. So showing category id for each product
+2. Could not implement filter by stock availablability. insufficient Moltin documentation.
 
-1. Fork their repo on Github
-2. In your local, rename your origin remote to upstream
-
-    git remote rename origin upstream
-
-3. Add a new origin
-
-    git remote add origin git@github...my-fork
-
-4. Fetch & push
-
-    git fetch origin
-    git push origin
