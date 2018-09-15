@@ -1,0 +1,17 @@
+div.filters 
+  div.category-filter 
+    select#categoryselect
+      option(value='') All Category
+      each cat in categories
+        option(value=cat.id selected=cat.id == category) #{cat.name}
+  hr
+
+  h5 Available ?
+  div.stock-filter 
+    div
+      input(type='radio' value='in-stock', name='stock', checked=pagination.stock == 'in-stock')
+      label #{"\u00A0"} In stock
+    div
+      input(type='radio' value='out-stock', name='stock' checked=pagination.stock == 'out-stock')
+      label #{"\u00A0"} Out of stock
+  hr

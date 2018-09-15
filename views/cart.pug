@@ -1,0 +1,19 @@
+extends layout
+
+block content
+  div.content-wrapper 
+    include partials/pagetitle.pug
+
+    each item in cart
+      ul.cart-items
+        li
+          div.row
+            div.column
+              h5 #{item.name}
+              p !{item.description}
+            div.column
+              span #{item.unit_price.amount} #{item.unit_price.currency}
+
+            div.column
+              a(href='/cart/remove?product=' + item.id)
+                i.fas.fa-cart-arrow-down

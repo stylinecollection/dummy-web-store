@@ -34,5 +34,25 @@
 **Note**: Fill up the following sections before creating the pull request
 
 #### Used tech stack
+1. Express.js, Node.js framework
+2. Milligram, css framework
+
 #### How to install dependencies (mention the OS it'll run on - Windows/Mac/Linux)
+1. install dependencies
+```bash
+npm install
+```
+2. make a copy of `.env.dis` file named `.env` and put moltin credentials.
+should work on any OS with node installed.
 #### How to run the project
+2. run project
+```bash
+npm start
+```
+project should be visible at http://localhost:3000
+
+
+#### Notes
+1. Product List api response has no category name for products. So showing category id for each product
+2. Could not implement filter by stock availablability. insufficient Moltin documentation.
+

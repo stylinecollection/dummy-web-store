@@ -1,0 +1,22 @@
+{
+  "name": "dummy-web-store",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "NODE_PATH=. nodemon ./bin/www"
+  },
+  "dependencies": {
+    "@moltin/sdk": "^3.12.1",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.9",
+    "dotenv": "6.0.0",
+    "express": "~4.16.0",
+    "http-errors": "~1.6.2",
+    "morgan": "~1.9.0",
+    "node-cache": "4.2.0",
+    "pug": "2.0.0-beta11"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.4"
+  }
+}

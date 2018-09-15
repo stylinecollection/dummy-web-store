@@ -1,0 +1,14 @@
+
+if pagination.previous
+  a.previous(href=pagination.previous) 
+    button.clear-button Previous
+else
+  a.previous(href='/') 
+    button.clear-button(disabled='true') Previous
+
+if pagination.next
+  a.next(href=pagination.next) 
+    button.clear-button Next
+else
+  a.next(href='/?page=') 
+    button.clear-button(disabled='true') Next

@@ -1,0 +1,20 @@
+extends layout
+
+block content
+  include partials/pagetitle.pug
+
+  div.row
+    div.column.column-40
+      form(action='/account/login', method='POST')
+        fieldset
+          div
+            label(for='emailField') Email
+            input#emailField(type='email' name='email' placeholder='someone@exmaple.com' required)
+
+          div
+            label(for='passwordField') Password
+            input#passwordField(type='password' name='password' placeholder='' required)
+
+          div
+            input.button-primary(type='submit' value='Login')
+

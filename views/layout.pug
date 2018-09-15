@@ -1,0 +1,42 @@
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic')
+    link(rel='stylesheet', href='//cdn.rawgit.com/necolas/normalize.css/master/normalize.css')
+    link(rel='stylesheet', href='//cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css')
+    link(rel='stylesheet'  href="//use.fontawesome.com/releases/v5.3.1/css/solid.css" 
+      integrity='sha384-VGP9aw4WtGH/uPAOseYxZ+Vz/vaTb1ehm1bwx92Fm8dTrE+3boLfF1SpAtB1z7HW' crossorigin='anonymous')
+    link(rel='stylesheet' href='//use.fontawesome.com/releases/v5.3.1/css/fontawesome.css' 
+      integrity='sha384-1rquJLNOM3ijoueaaeS5m+McXPJCGdr5HcA03/VHXxcp2kX2sUrQDmFc3jR5i/C7' crossorigin='anonymous')
+
+    link(rel='stylesheet', href='/stylesheets/style.css')
+
+  body
+    div.wrapper
+      nav.navigation
+        section.container
+          ul.navigation-list
+            li.navigation-item.home
+              a.navigation-link(href="/", title="Moltin Shop") Moltin Store
+
+          ul.navigation-list.float-right
+            if user
+              li.navigation-item
+                a.navigation-link(href="/cart") 
+                  if cart && cart.length > 0
+                  span.cart-items-count #{cart.length} #{"\u00A0"}
+                  i.fas.fa-shopping-cart
+                    
+              li.navigation-item.title #{user.name}
+              li.navigation-item
+                a.navigation-link(href="/account/logout") Logout
+            else
+              li.navigation-item
+                a.navigation-link(href="/account/signup") Sign Up
+              li.navigation-item
+                a.navigation-link(href="/account/login") Login
+
+
+      section.container
+        block content
