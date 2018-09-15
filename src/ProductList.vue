@@ -55,7 +55,7 @@
 </template>
 
 <script>
-  import axios from 'axios'
+  import MoltinService from './services/moltin.js';
 
   export default {
     data () {
@@ -74,33 +74,42 @@
       }
     },
     created () {
-      axios.defaults.headers.common['Authorization'] = '9c84ac4e7a983ddfd0d95595be4526c3d29dfe10';
-      axios.get(this.url).then(response => {
-        this.products = response.data.data;
-        if(response.data.hasOwnProperty('included') && response.data.included.hasOwnProperty('categories')) {
-          this.productCategories = response.data.included.categories;
+      MoltinService.getHomepageProducts().then(response => {
+        this.products = response.data;
+        if(response.hasOwnProperty('included') && response.included.hasOwnProperty('categories')) {
+          this.productCategories = response.included.categories;
         }
-        this.paginationLinks = response.data.links;
-        this.dataMeta = response.data.meta;
+        this.paginationLinks = response.links;
+        this.dataMeta = response.meta;
       });
-      axios.get('https://api.moltin.com/v2/categories').then(response => {
-        for(let i in response.data.data) {
-          // if(response.data.data[i].hasOwnProperty('relationships') && response.data.data[i].relationships.hasOwnProperty('products'))
-          {
-            this.categories.push({'value': response.data.data[i].id, 'text':response.data.data[i].name})
-          }
+      MoltinService.getCategories().then(response => {
+        for(let i in response.data) {
+          this.categories.push({'value': response.data[i].id, 'text':response.data[i].name})
         }
       });
     },
     methods: {
       loadProducts: function(key) {
-        axios.get(this.paginationLinks[key]).then(response => {
-          this.products = response.data.data;
-          if(response.data.hasOwnProperty('included') && response.data.included.hasOwnProperty('categories')) {
-            this.productCategories = response.data.included.categories;
+        var offset = 0;
+        if(key==='next'){
+          offset = this.dataMeta.page.offset + this.dataMeta.page.limit;
+        }
+        else if(key==='prev'){
+          offset = this.dataMeta.page.offset - this.dataMeta.page.limit;
+        }
+        else if(key==='last'){
+          offset = (this.dataMeta.page.total-1) * this.dataMeta.page.limit;
+        }
+        else if(key==='first'){
+          offset = 0;
+        }
+        MoltinService.getHomepageProducts(10, offset, this.selectedCategory, this.selectedAvailability).then(response => {
+          this.products = response.data;
+          if(response.hasOwnProperty('included') && response.included.hasOwnProperty('categories')) {
+            this.productCategories = response.included.categories;
           }
-          this.paginationLinks = response.data.links;
-          this.dataMeta = response.data.meta;
+          this.paginationLinks = response.links;
+          this.dataMeta = response.meta;
         });
       },
       getProductThumb: function (product) {
@@ -130,14 +139,22 @@
         return 'N/A'
       },
       filter: function () {
-        console.log(this.url);
-        axios.get(this.url).then(response => {
-          this.products = response.data.data;
-          if(response.data.hasOwnProperty('included') && response.data.included.hasOwnProperty('categories')) {
-            this.productCategories = response.data.included.categories;
+        let products = null;
+        if(this.selectedCategory == null && this.selectedAvailability == null)
+        {
+          products = MoltinService.getSortedProducts(10, 0, this.sorted);
+        }
+        else{
+          products = MoltinService.getHomepageProducts(10, 0, this.selectedCategory, this.selectedAvailability);
+        }
+
+        products.then(response => {
+          this.products = response.data;
+          if(response.hasOwnProperty('included') && response.included.hasOwnProperty('categories')) {
+            this.productCategories = response.included.categories;
           }
-          this.paginationLinks = response.data.links;
-          this.dataMeta = response.data.meta;
+          this.paginationLinks = response.links;
+          this.dataMeta = response.meta;
         });
       },
       changeSort: function () {
