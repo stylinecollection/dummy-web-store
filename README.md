@@ -34,5 +34,8 @@
 **Note**: Fill up the following sections before creating the pull request
 
 #### Used tech stack
+  1. vue.js
 #### How to install dependencies (mention the OS it'll run on - Windows/Mac/Linux)
+  1. npm install
 #### How to run the project
+  1. npm run dev
