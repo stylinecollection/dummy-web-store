@@ -34,23 +34,15 @@
 **Note**: Fill up the following sections before creating the pull request
 
 #### Used tech stack
+- Moltin SDK
+- Vue.JS (Javascript Framework)
+- Vuex (State Management Library)
+- Bootstrap
 #### How to install dependencies (mention the OS it'll run on - Windows/Mac/Linux)
+- Tested on Windows
+- Install npm. Download it from here(https://nodejs.org/en/)
+- npm install -g vue-cli
+- navigate to the project root folder
+- npm install (This will install dependencies)
 #### How to run the project
-
-# dummy-web-store
-
-> Dummy Web Store built on Vue.js
-
-## Build Setup
-
-``` bash
-# install dependencies
-npm install
-
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
-```
-
+- npm run dev
