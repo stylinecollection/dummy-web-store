@@ -1,0 +1,23 @@
+{
+  "name": "moltinstore",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@moltin/sdk": "^3.12.1",
+    "array-equal": "^1.0.0",
+    "react": "^16.5.1",
+    "react-dom": "^16.5.1",
+    "react-html-parser": "^2.0.2",
+    "react-redux": "^5.0.7",
+    "react-scripts": "1.1.5",
+    "redux": "^4.0.0",
+    "redux-thunk": "^2.3.0",
+    "truncate": "^2.0.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
