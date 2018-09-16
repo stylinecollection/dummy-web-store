@@ -34,5 +34,15 @@
 **Note**: Fill up the following sections before creating the pull request
 
 #### Used tech stack
+- Moltin SDK
+- Vue.JS (Javascript Framework)
+- Vuex (State Management Library)
+- Bootstrap
 #### How to install dependencies (mention the OS it'll run on - Windows/Mac/Linux)
+- Tested on Windows
+- Install npm. Download it from here(https://nodejs.org/en/)
+- npm install -g vue-cli
+- navigate to the project root folder
+- npm install (This will install dependencies)
 #### How to run the project
+- npm run dev
