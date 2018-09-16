@@ -9,7 +9,7 @@
           <div class="col-md-1  text-center">
             <router-link to="/" active-class="active"><a><strong>Home</strong></a></router-link>
           </div>
-          <div class="col-md-1  text-center">
+          <div class="col-md-1  text-center" v-if="customerToken != null">
             <router-link to="/cart" active-class="active"><a><strong>Cart</strong></a></router-link>
           </div>
           <div class="col-md-1 text-center" v-if="customerToken == null">
@@ -22,7 +22,7 @@
             <router-link to="/login" active-class="active"><a><strong>Login</strong></a></router-link>
           </div>
           <div class="col-md-1 text-center" v-if="customerToken != null">
-            <router-link to="/logout" active-class="active"><a><strong>Logout</strong></a></router-link>
+            <strong><a href="#" @click="onLogout">Logout</a></strong>
           </div>
           <div class="col-md-1"></div>
         </div>
@@ -33,6 +33,11 @@
 
 <script>
   export default {
+    methods:{
+      onLogout(){
+        this.$store.dispatch('logout')
+      }
+    },
     computed:{
       customerToken(){
         return this.$store.getters.getToken

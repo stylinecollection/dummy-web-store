@@ -21,7 +21,7 @@
         </div>
       </div>
     </div>
-    <div class="alert alert-danger text-center" role="alert" v-if="productsCount == 0">
+    <div class="alert alert-danger text-center" role="alert" v-if="checked && productsCount == 0">
       <strong>No Item is Added in Cart!</strong>
     </div>
   </div>
@@ -33,6 +33,7 @@
   export default {
     data(){
       return{
+        checked:false,
         products:[]
       }
     },
@@ -43,6 +44,7 @@
       loadData: function () {
         MoltinService.getCart(this.$store.getters.getId).then(items=>{
           this.products = items.data;
+          this.checked = true;
         })
       },
       removeFromCart: function (product) {

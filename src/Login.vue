@@ -37,6 +37,7 @@
 
 <script>
   import MoltinService from './services/moltin.js';
+  import router from './router'
   export default {
     data() {
       return{
@@ -64,6 +65,7 @@
           MoltinService.getCustomerName(this.customerId, this.token).then(customer => {
             data.name = customer.data.name;
             this.setUserData(data);
+            router.replace('/cart')
           });
         })
       }
