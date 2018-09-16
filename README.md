@@ -32,7 +32,19 @@
 
 ---
 **Note**: Fill up the following sections before creating the pull request
+#### Project Status
+- ***NOT COMPLETE***
+- It shows the List of Products(without Pagination) with name, product image (one), sku, price, stock
+- rest of the features are incomplete
 
 #### Used tech stack
+- Laravel(PHP)
+
 #### How to install dependencies (mention the OS it'll run on - Windows/Mac/Linux)
+- Tested on Windows (should wotk on other OS)
+
 #### How to run the project
+- clone the repo
+- cd into the project folder (there is another 'dummy-web-store' inside the main 'dummy-web-store' folder)
+- run 'compoer install' (assuming composer is installed in your machine)
+- run 'php artisan serve'
